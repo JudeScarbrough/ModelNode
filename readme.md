@@ -37,7 +37,7 @@ ModelNode/
 
 
 
-# Installation and Setup Guide  
+
 
 ## Prerequisites  
 
@@ -52,6 +52,7 @@ ModelNode/
 
 2. **Install Required Python Libraries**  
    - Open a terminal or command prompt and run the following command to install the necessary libraries:  
+
      ```bash
      pip install requests ollama
      ```
@@ -75,11 +76,9 @@ Ollama is a model serving tool that allows you to run and serve AI models on you
 1. **Download a Model**  
    After installing Ollama, you can download a model by running the following command in your terminal or command prompt:  
    ```bash
-   bach ollama pull <model_name>
+   ollama pull <model_name>
 
-
-
-
+    - Models can be found [on Ollama's website](https://ollama.com/search).
 
 ## Running the Server
 
