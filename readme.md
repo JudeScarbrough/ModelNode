@@ -16,13 +16,18 @@ ModelNode is a lightweight HTTP server and client interface for interacting with
 
 ```
 ModelNode/
-|-- modelnode.py                 # Main server implementation
-|-- ollama_interaction.py        # Model interaction handler
-|-- client_example.py            # Example client script for testing
-|-- server_example.py            # Example script to run the server
-|-- web_ui/
-    |-- index.html               # Frontend interface
-    |-- styles.css               # Frontend styling
+|   modelnode.py                 # Main server implementation
+|   ollama_interaction.py        # Model interaction handler
+|   readme.md                    # Project documentation
+|
++---examples
+|       ollama_direct_usage.py   # Example script for direct model usage
+|       py_request.py            # Example script for testing client requests
+|       py_run_server.py         # Example script for running the server
+|
++---web_ui
+|       index.html               # Frontend interface
+|       styles.css               # Frontend styling
 ```
 
 ---
@@ -59,7 +64,7 @@ routes = {
 Use the `run_server` function to start the HTTP server:
 
 ```bash
-python server_example.py
+python examples/py_run_server.py
 ```
 
 By default, the server runs on `http://0.0.0.0:8000` and serves the following endpoints:
@@ -150,7 +155,20 @@ response = get_response(prompt, model_name)
 print(response)
 ```
 
-### `client_example.py`
+### `examples/ollama_direct_usage.py`
+
+A sample script for direct model usage:
+
+```python
+import ollama_interaction
+
+model_name = "llama3.2"
+prompt = "Explain quantum physics in simple terms."
+response = ollama_interaction.get_response(prompt, model_name)
+print(response)
+```
+
+### `examples/py_request.py`
 
 A sample client script for testing the server:
 
@@ -160,6 +178,21 @@ url = "http://localhost:8000/llama"
 params = {"prompt": "Tell me a joke."}
 response = requests.get(url, params=params)
 print(response.json())
+```
+
+### `examples/py_run_server.py`
+
+A script to start the server with predefined routes:
+
+```python
+import modelnode
+
+routes = {
+    "/llama": "llama3.2",
+    "/deepseek": "deepseek-r1:latest"
+}
+
+modelnode.run_server(routes, show_prompts=True, show_responses=True)
 ```
 
 ---
