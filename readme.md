@@ -2,8 +2,15 @@
 
   
 
-ModelNode is a lightweight HTTP server and client interface for interacting with machine learning models. This package allows you to map specific routes to models, handle requests, and serve a web-based user interface for interacting with the models.
+ModelNode is a lightweight and efficient HTTP server and client interface designed for seamless interaction with machine learning models. With this package, you can easily map specific HTTP routes to models hosted on your public IP, enabling you to receive prompts and deliver responses from your models in real-time.
 
+#### Why ModelNode?
+ModelNode simplifies the process of integrating machine learning models into your web applications. It provides a cost-free, hassle-free alternative to third-party APIs like OpenAI. By hosting your own server with ModelNode, you can:
+
+- Host custom machine learning models.
+- Handle prompts and responses directly from your web app.
+- Achieve a fully self-sufficient setup without incurring API costs.
+If you're building innovative AI-driven features or scaling existing ones, ModelNode makes backing your web apps with large language models fast, simple, and free.
   
 
 ## Features
