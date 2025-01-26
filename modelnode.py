@@ -2,7 +2,11 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 import urllib.parse as urlparse
 import socket
 import json
-import analyze
+import ollama_interaction
+import os
+
+# Define the base directory for static files
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Function to handle routes and parameters
 def handle_request(route, params, route_model_map, show_prompts, show_responses):
@@ -15,6 +19,21 @@ def handle_request(route, params, route_model_map, show_prompts, show_responses)
             print(f"Response: {response}")
         return response
 
+    # Serve the blank route "/"
+    if route == "/":
+        filepath = os.path.join(BASE_DIR, "web_ui/index.html")  # Path to the index.html file
+        try:
+            with open(filepath, "rb") as f:
+                response = f.read()  # Read the file content
+                if show_prompts:
+                    print(f"Handling route: {route}")
+                    print(f"Serving: web_ui/index.html")
+                return response.decode("utf-8")  # Return the HTML as a string
+        except FileNotFoundError:
+            error_message = "404 Not Found: index.html not found"
+            print(error_message)
+            return error_message
+
     if route in route_model_map:
         model_name = route_model_map[route]  # Get the model name for this route
         if show_prompts:
@@ -25,7 +44,7 @@ def handle_request(route, params, route_model_map, show_prompts, show_responses)
             prompt = params["prompt"][0]  # Extract the prompt parameter
 
             try:
-                response = analyze.get_response(prompt, model_name)
+                response = ollama_interaction.get_response(prompt, model_name)
                 if show_responses:
                     print(f"Response from model '{model_name}': {response}")
                 return response
@@ -62,7 +81,43 @@ class RouteHandler(BaseHTTPRequestHandler):
         route = parsed_path.path  # Extract the route (e.g., "/hello")
         params = urlparse.parse_qs(parsed_path.query)  # Extract query parameters
 
-        # Call the function with the route, parameters, and model map
+        # Serve the root route with index.html
+        if route == "/":
+            filepath = os.path.join(BASE_DIR, "web_ui/index.html")
+            try:
+                with open(filepath, "rb") as f:
+                    self.send_response(200)
+                    self._set_cors_headers()
+                    self.send_header("Content-Type", "text/html")
+                    self.end_headers()
+                    self.wfile.write(f.read())
+                return
+            except FileNotFoundError:
+                self.send_response(404)
+                self.send_header("Content-Type", "text/plain")
+                self.end_headers()
+                self.wfile.write(b"404 Not Found: index.html not found")
+                return
+
+        # Serve the styles.css file
+        elif route == "/styles.css":
+            filepath = os.path.join(BASE_DIR, "web_ui/styles.css")
+            try:
+                with open(filepath, "rb") as f:
+                    self.send_response(200)
+                    self._set_cors_headers()
+                    self.send_header("Content-Type", "text/css")
+                    self.end_headers()
+                    self.wfile.write(f.read())
+                return
+            except FileNotFoundError:
+                self.send_response(404)
+                self.send_header("Content-Type", "text/plain")
+                self.end_headers()
+                self.wfile.write(b"404 Not Found: web_ui/styles.css not found")
+                return
+
+        # Handle other routes
         response_message = handle_request(
             route,
             params,
@@ -77,6 +132,7 @@ class RouteHandler(BaseHTTPRequestHandler):
         self.send_header("Content-type", "application/json" if route == "/get-routes" else "text/plain")
         self.end_headers()
         self.wfile.write(response_message.encode("utf-8"))
+
 
 
 def get_private_ip():
@@ -103,6 +159,7 @@ def run_server(route_model_map, host="0.0.0.0", port=8000, show_prompts=False, s
     for route, model in route_model_map.items():
         print(f"  {route} -> {model}")
     print("  /get-routes -> (Returns the route-to-model mapping)")
+    print("  / -> (Serves index.html with styles.css)")
 
     server = HTTPServer((host, port), RouteHandler)
     try:

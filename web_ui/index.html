@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ModelNode</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <header>
+        <h1>ModelNode</h1>
+        <div id="server-info-container">
+            <span>Server: <strong id="server-info"></strong></span>
+        </div>
+    </header>
+
+    <select id="model-select">
+        <option value="" disabled selected>Loading models...</option>
+    </select>
+
+    <div class="chat-container">
+        <div id="chat-messages" class="chat-messages"></div>
+        <div class="chat-input-container">
+            <input id="chat-input" placeholder="Type your prompt here..." />
+            <button id="send-button">Send</button>
+        </div>
+    </div>
+
+    <script>
+        let baseURL = `${window.location.origin}`;
+
+        // Set the server information display
+        window.onload = () => {
+            document.getElementById("server-info").textContent = baseURL;
+            loadModels();
+        };
+
+        // Submit prompt on pressing Enter
+        document.getElementById("chat-input").addEventListener("keypress", (e) => {
+            if (e.key === "Enter") {
+                document.getElementById("send-button").click();
+            }
+        });
+
+        // Load models from the server
+        async function loadModels() {
+            try {
+                const response = await fetch(`${baseURL}/get-routes`);
+                if (!response.ok) {
+                    alert("Failed to fetch models. Check the server configuration.");
+                    return;
+                }
+                const models = await response.json();
+                const modelSelect = document.getElementById("model-select");
+                modelSelect.innerHTML = ""; // Clear existing options
+
+                for (const [route, model] of Object.entries(models)) {
+                    const option = document.createElement("option");
+                    option.value = route;
+                    option.textContent = `${route} (${model})`;
+                    modelSelect.appendChild(option);
+                }
+            } catch (error) {
+                alert("Error fetching models: " + error.message);
+            }
+        }
+
+        // Add message to chat
+        function addMessage(content, sender) {
+            const chatMessages = document.getElementById("chat-messages");
+            const messageDiv = document.createElement("div");
+
+            if (content.startsWith("<think>") && content.endsWith("</think>")) {
+                const formattedContent = formatThinkContent(content.replace(/<\/?think>/g, ""));
+                messageDiv.innerHTML = `<span class="think">${formattedContent}</span>`;
+                messageDiv.className = `chat-message ${sender}`;
+            } else {
+                messageDiv.textContent = content;
+                messageDiv.className = `chat-message ${sender}`;
+            }
+
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll to bottom
+        }
+
+        // Format <think> content
+        function formatThinkContent(content) {
+            // Bold text between **
+            const boldFormatted = content.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+            // Replace new lines with <br>
+            return boldFormatted.replace(/\n/g, "<br>");
+        }
+
+        // Show animated loading indicator in chat
+        function showLoadingIndicatorInChat() {
+            const chatMessages = document.getElementById("chat-messages");
+            const loadingDiv = document.createElement("div");
+            loadingDiv.id = "loading-indicator";
+            loadingDiv.className = "chat-message model loading-indicator";
+            loadingDiv.innerHTML = '<span id="dots">Loading</span><span class="dots"></span>';
+            chatMessages.appendChild(loadingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll to bottom
+            animateLoadingDots(); // Start animation
+        }
+
+        // Remove loading indicator
+        function removeLoadingIndicator() {
+            const loadingDiv = document.getElementById("loading-indicator");
+            if (loadingDiv) {
+                loadingDiv.remove();
+            }
+        }
+
+        // Animate loading dots
+        function animateLoadingDots() {
+            const dots = document.querySelector("#dots");
+            let count = 0;
+            const interval = setInterval(() => {
+                if (!document.getElementById("loading-indicator")) {
+                    clearInterval(interval); // Stop animation if the loading indicator is removed
+                    return;
+                }
+                count = (count + 1) % 4; // Cycle through 0 to 3 dots
+                dots.innerHTML = `Loading${".".repeat(count)}`;
+            }, 500);
+        }
+
+        // Send message to server
+        document.getElementById("send-button").addEventListener("click", async () => {
+            const prompt = document.getElementById("chat-input").value;
+            const selectedRoute = document.getElementById("model-select").value;
+
+            if (!selectedRoute) {
+                alert("Please select a model.");
+                return;
+            }
+            if (!prompt) {
+                alert("Please enter a prompt.");
+                return;
+            }
+
+            addMessage(prompt, "user"); // Show user message
+            document.getElementById("chat-input").value = ""; // Clear input field
+
+            showLoadingIndicatorInChat(); // Show loading indicator
+
+            try {
+                const response = await fetch(`${baseURL}${selectedRoute}?prompt=${encodeURIComponent(prompt)}`);
+                if (!response.ok) {
+                    addMessage("Error: Failed to get a response from the server.", "model");
+                    return;
+                }
+                const data = await response.text();
+                removeLoadingIndicator(); // Remove loading indicator
+                addMessage(data, "model"); // Show model response
+            } catch (error) {
+                removeLoadingIndicator(); // Remove loading indicator
+                addMessage("Error: " + error.message, "model");
+            }
+        });
+    </script>
+</body>
+</html>
