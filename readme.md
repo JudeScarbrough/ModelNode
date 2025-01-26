@@ -1,6 +1,6 @@
 # ModelNode
 
-ModelNode is a lightweight HTTP server and client interface for interacting with machine learning models via RESTful APIs. This project allows you to map specific routes to machine learning models, handle requests, and serve a web-based user interface for interacting with the models.
+ModelNode is a lightweight HTTP server and client interface for interacting with machine learning models. This package allows you to map specific routes to machine learning models, handle requests, and serve a web-based user interface for interacting with the models.
 
 ## Features
 
@@ -12,13 +12,13 @@ ModelNode is a lightweight HTTP server and client interface for interacting with
 
 ---
 
-## Project Structure
+## Package Structure
 
 ```
 ModelNode/
 |   modelnode.py                 # Main server implementation
 |   ollama_interaction.py        # Model interaction handler
-|   readme.md                    # Project documentation
+|   readme.md                    # Package documentation
 |
 +---examples
 |       ollama_direct_usage.py   # Example script for direct model usage
@@ -34,18 +34,52 @@ ModelNode/
 
 ## Setup and Installation
 
-### Prerequisites
 
-1. Python 3.8+
-2. Install required dependencies:
 
-```bash
-pip install requests
-```
 
-3. (Optional) Install additional dependencies for your models.
+# Installation and Setup Guide  
+
+## Prerequisites  
+
+### Python  
+
+1. **Ensure Python 3.8+ is Installed**  
+   - Check if Python 3.8 or later is installed on your system by running the following command in your terminal or command prompt:  
+     ```bash
+     python --version
+     ```
+   - If Python is not installed or the version is older than 3.8, download and install the latest version from [python.org](https://www.python.org/).
+
+2. **Install Required Python Libraries**  
+   - Open a terminal or command prompt and run the following command to install the necessary libraries:  
+     ```bash
+     pip install requests ollama
+     ```
+
+### Ollama  
+
+Ollama is a model serving tool that allows you to run and serve AI models on your local machine.  
 
 ---
+
+## Installation Steps for Ollama  
+
+1. Visit [Ollama's Official Website](https://ollama.com/).  
+2. Download the installer from the website.  
+3. Run the downloaded installer and follow the on-screen instructions to complete the installation.  
+
+---
+
+## Using Ollama  
+
+1. **Download a Model**  
+   After installing Ollama, you can download a model by running the following command in your terminal or command prompt:  
+   ```bash
+   bach ollama pull <model_name>
+
+
+
+
 
 ## Running the Server
 
