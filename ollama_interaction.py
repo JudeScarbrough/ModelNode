@@ -24,14 +24,3 @@ def get_response(prompt, model_name):
 
 
 
-
-if __name__ == "__main__":
-    # Example prompt and model
-    model_name = "llama3.2"  # Replace with the desired model
-    prompt = "Why is the sky blue?"
-
-    # Get the response
-    response = get_response(prompt, model_name)
-
-    # Print the response
-    print(f"Response: {response}")
