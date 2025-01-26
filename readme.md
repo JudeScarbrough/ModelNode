@@ -10,6 +10,7 @@ ModelNode simplifies the process of integrating machine learning models into you
 - Host custom machine learning models.
 - Handle prompts and responses directly from your web app.
 - Achieve a fully self-sufficient setup without incurring API costs.
+
 If you're building innovative AI-driven features or scaling existing ones, ModelNode makes backing your web apps with large language models fast, simple, and free.
   
 
