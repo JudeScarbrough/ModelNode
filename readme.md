@@ -7,8 +7,9 @@ ModelNode is a lightweight and efficient HTTP server and client interface design
 #### Why ModelNode?
 ModelNode simplifies the process of integrating machine learning models into your web applications. It provides a cost-free, hassle-free alternative to third-party APIs like OpenAI. By hosting your own server with ModelNode, you can:
 
-- Host custom machine learning models.
-- Handle prompts and responses directly from your web app.
+- Host multiple custom machine learning models.
+- Handle prompts and responses directly for your web app.
+- Interact directly with your models using python.
 - Achieve a fully self-sufficient setup without incurring API costs.
 
 If you're building innovative AI-driven features or scaling existing ones, ModelNode makes backing your web apps with large language models fast, simple, and free.
@@ -38,6 +39,7 @@ ModelNode/
 |   modelnode.py                 # Main server implementation
 |   ollama_interaction.py        # Model interaction handler
 |   readme.md                    # Package documentation
+│   __init__.py                  # Package initialization
 |
 +---examples
 |       ollama_direct_usage.py   # Example script for direct model usage
