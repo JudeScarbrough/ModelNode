@@ -5,6 +5,8 @@ import json
 import ollama_interaction
 import os
 
+### Documentation available at https://github.com/JudeScarbrough/ModelNode ###
+
 # Define the base directory for static files
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -168,13 +170,4 @@ def run_server(route_model_map, host="0.0.0.0", port=8000, show_prompts=False, s
         print("\nShutting down server...")
         server.server_close()
 
-if __name__ == "__main__":
-    # Example route-to-model mapping
-    routes = {
-        "/hello": "llama3.2",
-        "/goodbye": "llama2"
-    }
 
-    # You can specify the port here, or leave it to default to 8000
-    custom_port = 8080  # Change this to any port you like, or remove it to use the default
-    run_server(routes, port=custom_port, show_prompts=True, show_responses=True)
