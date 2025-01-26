@@ -11,7 +11,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Function to handle routes and parameters
-def handle_request(route, params, route_model_map, show_prompts, show_responses):
+def _handle_request(route, params, route_model_map, show_prompts, show_responses):
     if route == "/get-routes":
         # Return the route-to-model mapping as a JSON response
         response = json.dumps(route_model_map, indent=4)
@@ -59,7 +59,7 @@ def handle_request(route, params, route_model_map, show_prompts, show_responses)
     
     return f"Error: Route '{route}' not found"
 
-class RouteHandler(BaseHTTPRequestHandler):
+class _RouteHandler(BaseHTTPRequestHandler):
     # This will hold the route-to-model mapping and logging settings
     route_model_map = {}
     show_prompts = False
@@ -120,7 +120,7 @@ class RouteHandler(BaseHTTPRequestHandler):
                 return
 
         # Handle other routes
-        response_message = handle_request(
+        response_message = _handle_request(
             route,
             params,
             self.route_model_map,
@@ -137,7 +137,7 @@ class RouteHandler(BaseHTTPRequestHandler):
 
 
 
-def get_private_ip():
+def _get_private_ip():
     """Get the private IP address of the current machine."""
     try:
         hostname = socket.gethostname()
@@ -148,12 +148,12 @@ def get_private_ip():
 
 def run_server(route_model_map, host="0.0.0.0", port=8000, show_prompts=False, show_responses=False):
     """Run the HTTP server with the given route-to-model mapping, logging settings, and port."""
-    private_ip = get_private_ip()
+    private_ip = _get_private_ip()
 
     # Inject the route-to-model mapping and logging settings into the request handler
-    RouteHandler.route_model_map = route_model_map
-    RouteHandler.show_prompts = show_prompts
-    RouteHandler.show_responses = show_responses
+    _RouteHandler.route_model_map = route_model_map
+    _RouteHandler.show_prompts = show_prompts
+    _RouteHandler.show_responses = show_responses
 
     print(f"Starting server on {host}:{port}...")
     print(f"Accessible on your local network at: http://{private_ip}:{port}")
@@ -163,7 +163,7 @@ def run_server(route_model_map, host="0.0.0.0", port=8000, show_prompts=False, s
     print("  /get-routes -> (Returns the route-to-model mapping)")
     print("  / -> (Serves index.html with styles.css)")
 
-    server = HTTPServer((host, port), RouteHandler)
+    server = HTTPServer((host, port), _RouteHandler)
     try:
         server.serve_forever()
     except KeyboardInterrupt:

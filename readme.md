@@ -145,14 +145,14 @@ Use the `run_server` function to start the HTTP server:
   
 
 ```python
-import ModelNode.modelnode
+import ModelNode
 
 routes = {
 	"/llama": "llama3.2",
 	"/deepseek": "deepseek-r1:latest"
 }
 
-ModelNode.modelnode.run_server(routes)
+ModelNode.run_server(routes)
 ```
 
   
@@ -242,7 +242,7 @@ To run the server on a different port, specify it in the `run_server` function:
   
 
 ```python
-run_server(routes, port=8080)
+ModelNode.run_server(routes, port=8080)
 ```
 
   
@@ -264,7 +264,7 @@ Enable logging of requests and responses by setting the following parameters to 
   
 
 ```python
-ModelNode.modelnode.run_server(routes, show_prompts=True, show_responses=True)
+ModelNode.run_server(routes, show_prompts=True, show_responses=True)
 ```
 
 
@@ -279,12 +279,12 @@ Handles interaction with models. Example:
   
 
 ```python
-from ModelNode.ollama_interaction import get_response
+import ModelNode
 
 model_name = "llama3.2"
 prompt = "Why is the sky blue?"
 
-response = get_response(prompt, model_name)
+response = ModelNode.get_response(prompt, model_name)
 
 print(response)
 ```
