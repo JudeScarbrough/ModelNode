@@ -1,4 +1,5 @@
 import ollama
+# requires pip install ollama
 
 def get_response(prompt, model_name):
     """
