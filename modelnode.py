@@ -172,7 +172,7 @@ def run_server(route_model_map, host="0.0.0.0", port=8000, show_prompts=False, s
     print()
     print(f"Starting server on {private_ip}:{port}")
     print()
-    print(f"Web user interface accessible at: \033[4;34mhttp://{private_ip}:{port}\033[0m  (ctrl + click to open)")
+    print(f"Web user interface accessible at: \033[4;34mhttp://{private_ip}:{port}\033[0m  (ctrl + click (windows) or cmd + click (mac) to open)")
     print()
     print("Routes:")
     for route, model in route_model_map.items():
