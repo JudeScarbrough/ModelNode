@@ -67,7 +67,7 @@ ModelNode/
 
   
 
-### Python Prerequisits
+### Python Prerequisites
 
   
 
@@ -93,7 +93,7 @@ pip install requests ollama
 
   
 
-### Ollama Prerequisits
+### Ollama Prerequisites
 
   
 
