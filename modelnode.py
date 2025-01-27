@@ -2,7 +2,7 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 import urllib.parse as urlparse
 import socket
 import json
-from . import ollama_interaction
+import ollama_interaction
 import os
 
 ### Documentation available at https://github.com/JudeScarbrough/ModelNode ###
@@ -157,7 +157,7 @@ def run_server(route_model_map, host="0.0.0.0", port=8000, show_prompts=False, s
 
 
 
-    model_node = """
+    model_node = r"""
   __  __           _      _ _   _           _      
  |  \/  |         | |    | | \ | |         | |     
  | \  / | ___   __| | ___| |  \| | ___   __| | ___ 
