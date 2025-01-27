@@ -127,6 +127,22 @@ ollama pull <model_name>
 
   
 
+### Package Installation
+
+1. In your project directory install the ModelNode package using the terminal command:
+```bash
+git clone https://github.com/JudeScarbrough/ModelNode.git
+```
+2. Open a python file in your project directory and import ModelNode to start.
+```python
+import ModelNode
+```
+
+
+
+
+
+
 ## Running the Server
 
   
