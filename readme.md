@@ -87,7 +87,7 @@ ModelNode/
 
 ```bash
 
-pip install requests ollama
+pip install -r requirements.txt
 
 ```
 
