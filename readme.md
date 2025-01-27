@@ -86,9 +86,7 @@ ModelNode/
   
 
 ```bash
-
 pip install -r requirements.txt
-
 ```
 
   
@@ -132,7 +130,12 @@ ollama pull <model_name>
 1. In your project directory install the ModelNode package using the terminal command:
 ```bash
 git clone https://github.com/JudeScarbrough/ModelNode.git
+cd ModelNode
+python -m venv --prompt=modelnode .venv
+source .venv/bin/activate
+pip install -r requirements.txt
 ```
+
 2. Open a python file in your project directory and import ModelNode to start.
 ```python
 import ModelNode
@@ -200,7 +203,11 @@ By default, the server runs on `http://0.0.0.0:8000` and serves the following en
 
 ## Example Usage
 
-  
+### Start the Example Server
+
+```bash
+python examples/py_run_server.py
+```
 
 ### Sending Requests to the Server
 
