@@ -13,7 +13,7 @@ import ollama_interaction
 
 
 
-model_name = "llama3.2"  # Replace with the desired model
+model_name = "llama2"  # Replace with the desired model
 prompt = "Why is the sky blue?"
 
 # Get the response

@@ -2,7 +2,7 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 import urllib.parse as urlparse
 import socket
 import json
-import ollama_interaction
+from . import ollama_interaction
 import os
 
 ### Documentation available at https://github.com/JudeScarbrough/ModelNode ###
@@ -155,13 +155,31 @@ def run_server(route_model_map, host="0.0.0.0", port=8000, show_prompts=False, s
     _RouteHandler.show_prompts = show_prompts
     _RouteHandler.show_responses = show_responses
 
-    print(f"Starting server on {host}:{port}...")
-    print(f"Accessible on your local network at: http://{private_ip}:{port}")
+
+
+    model_node = """
+  __  __           _      _ _   _           _      
+ |  \/  |         | |    | | \ | |         | |     
+ | \  / | ___   __| | ___| |  \| | ___   __| | ___ 
+ | |\/| |/ _ \ / _` |/ _ \ | . ` |/ _ \ / _` |/ _ |
+ | |  | | (_) | (_| |  __/ | |\  | (_) | (_| |  __/
+ |_|  |_|\___/ \__,_|\___|_|_| \_|\___/ \__,_|\___|
+"""
+
+
+
+    print(model_node)
+    print()
+    print(f"Starting server on {private_ip}:{port}")
+    print()
+    print(f"Web user interface accessible at: \033[4;34mhttp://{private_ip}:{port}\033[0m  (ctrl + click to open)")
+    print()
     print("Routes:")
     for route, model in route_model_map.items():
         print(f"  {route} -> {model}")
     print("  /get-routes -> (Returns the route-to-model mapping)")
     print("  / -> (Serves index.html with styles.css)")
+    print()
 
     server = HTTPServer((host, port), _RouteHandler)
     try:
