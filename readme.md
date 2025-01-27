@@ -149,7 +149,7 @@ import ModelNode
 
 ### Step 1: Define Routes
 
-Define your route-to-model mapping in the `routes` dictionary. Enter your desired routes as keys and model names as values.
+Define your route-to-model mapping in the `routes` dictionary. Enter your desired routes as keys and model names as values. Ensure you download, and correctly type the name of each model you want to support.
 
   
 
