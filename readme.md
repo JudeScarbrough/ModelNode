@@ -81,11 +81,13 @@ ModelNode/
 
 2.  **Install Required Python Libraries**
 
-- Open a terminal or command prompt and run the following command to install the necessary libraries:
-
-  
+- Open a terminal and run the following command to check out the repo install the necessary libraries:
 
 ```bash
+git clone https://github.com/JudeScarbrough/ModelNode.git
+cd ModelNode
+python -m venv --prompt=modelnode .venv
+source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
@@ -123,27 +125,6 @@ ollama pull <model_name>
 
 - Models can be found [on Ollama's website](https://ollama.com/search).
 
-  
-
-### Package Installation
-
-1. In your project directory install the ModelNode package using the terminal command:
-```bash
-git clone https://github.com/JudeScarbrough/ModelNode.git
-cd ModelNode
-python -m venv --prompt=modelnode .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-```
-
-2. Open a python file in your project directory and import ModelNode to start.
-```python
-import ModelNode
-```
-
-
-
-
 
 
 ## Running the Server
@@ -157,6 +138,8 @@ Define your route-to-model mapping in the `routes` dictionary. Enter your desire
   
 
 ```python
+import ModelNode
+
 routes = {
 	"/llama": "llama3.2",
 	"/deepseek": "deepseek-r1:latest"
