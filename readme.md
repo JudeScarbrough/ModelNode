@@ -9,10 +9,10 @@ ModelNode simplifies the process of integrating machine learning models into you
 
 - Host multiple custom machine learning models.
 - Handle prompts and responses directly for your web app.
-- Interact directly with your models using python.
+- Interact directly with your models using Python.
 - Achieve a fully self-sufficient setup without incurring API costs.
 
-If you're building new AI-driven features or scaling existing ones, ModelNode makes backing your web apps with large language models simple, and free.
+If you're building new AI-driven features or scaling existing ones, ModelNode makes backing your web apps with large language models simple and free.
   
 
 ## Features
@@ -27,7 +27,7 @@ If you're building new AI-driven features or scaling existing ones, ModelNode ma
 
 - Example scripts for model interaction and testing
 
-- Cross origin resource sharing (CORS) support
+- Cross-origin resource sharing (CORS) support
 
   
 
@@ -39,7 +39,8 @@ ModelNode/
 |   modelnode.py                 # Main server implementation
 |   ollama_interaction.py        # Model interaction handler
 |   readme.md                    # Package documentation
-│   __init__.py                  # Package initialization
+|   requirements.txt             # Dependencies list
+|   __init__.py                  # Package initialization
 |
 +---examples
 |       ollama_direct_usage.py   # Example script for direct model usage
@@ -81,13 +82,21 @@ ModelNode/
 
 2.  **Install Required Python Libraries**
 
-- Open a terminal and run the following command to check out the repo install the necessary libraries:
+- Open a terminal and run the following commands to install the package and necessary libraries:
 
 ```bash
 git clone https://github.com/JudeScarbrough/ModelNode.git
+```
+```bash
 cd ModelNode
+```
+```bash
 python -m venv --prompt=modelnode .venv
+```
+```bash
 source .venv/bin/activate
+```
+```bash
 pip install -r requirements.txt
 ```
 
@@ -97,7 +106,7 @@ pip install -r requirements.txt
 
   
 
-Ollama is a model serving tool that allows you to run and serve AI models on your local machine.
+Ollama is a model-serving tool that allows you to run and serve AI models on your local machine.
 
   
 
@@ -115,12 +124,10 @@ Ollama is a model serving tool that allows you to run and serve AI models on you
 
 3. Run the downloaded installer and follow the on-screen instructions to complete the installation.
 
-4.  **Download a Model**: After installing Ollama, you can download a model by running the following command in your terminal or command prompt:
+4.  **Download a Model**: After installing Ollama, you can download a model by running the following command in your terminal:
 
 ```bash
-
 ollama pull <model_name>
-
 ```
 
 - Models can be found [on Ollama's website](https://ollama.com/search).
@@ -133,7 +140,7 @@ ollama pull <model_name>
 
 ### Step 1: Define Routes
 
-Define your route-to-model mapping in the `routes` dictionary. Enter your desired routes as keys and model names as values. Ensure you download, and correctly type the name of each model you want to support.
+Define your route-to-model mapping in the `routes` dictionary. Enter your desired routes as keys and model names as values. Ensure you download and correctly type the name of each model you want to support.
 
   
 
@@ -187,7 +194,11 @@ By default, the server runs on `http://0.0.0.0:8000` and serves the following en
 ## Example Usage
 
 ### Start the Example Server
-
+- Install the llama3.2 model, which the example server requires using the following terminal command
+```bash
+ollama pull llama3.2
+```
+- Start the example server
 ```bash
 python examples/py_run_server.py
 ```
@@ -245,6 +256,22 @@ To add new routes, modify the `routes` dictionary in the server script:
 routes = {
 	"/new-model": "new-model-name"
 }
+```
+
+### Adding Context to Prompts
+To add context to your prompts (knowledge the model may find helpful in responding to your prompt), define it in the parameters sent with your GET request.
+
+```python
+import ModelNode
+
+url = "https://localhost:8000"
+params = {
+    "prompt": "Build a daily schedule for myself.",
+    "context" "I typically like to read in the morining."
+}
+
+response = requests.get(url, params=params)
+print(response.json())
 ```
 
   
