@@ -19,15 +19,24 @@ If you're building new AI-driven features or scaling existing ones, ModelNode ma
 
   
 
-- Route-to-model mapping
+- #### Route-to-model mapping  
+    Allows mapping of request routes to different models, enabling multiple AI models on a single server.
 
-- Logging for requests and responses
+- #### Support for prompt context  
+    Allows context such as code documentation, historical context, or prior conversation history to be included, enabling more accurate and informed responses.  
 
-- Web-based UI for sending prompts and viewing responses
+- #### Logging for requests and responses  
+    Captures request and response data for debugging, monitoring, and analytics.
 
-- Example scripts for model interaction and testing
+- #### Web-based UI for sending prompts and viewing responses  
+    Provides a simple and intuitive web interface to interact with the server, send queries, and visualize responses.
 
-- Cross-origin resource sharing (CORS) support
+- #### Example scripts
+    Includes ready-to-use scripts demonstrating how to send requests to and run the server
+
+- #### Cross-origin resource sharing (CORS) support  
+    Allows access from different domains, making it easier to integrate the service with web applications and external clients.
+
 
   
 
