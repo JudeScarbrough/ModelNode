@@ -8,9 +8,9 @@ sys.path.append(parent_dir)
 import modelnode
 
 
+# ensure llama3.2 is installed via terminal command "ollama pull llama3.2"
 routes = {
-    "/llama": "llama3.2",
-    "/deepseek": "deepseek-r1:latest"
+    "/llama": "llama3.2"
 }
 
 

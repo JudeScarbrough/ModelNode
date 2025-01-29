@@ -1,8 +1,8 @@
 import requests
 import json
 
-# URL for the GET request
-url = "your server url"
+# Ensure you set your proper URL
+url = "https:/localhost:8000/llama"
 
 # Parameters for the GET request
 params = {
