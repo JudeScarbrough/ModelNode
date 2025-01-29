@@ -52,6 +52,11 @@ def _handle_request(route, params, route_model_map, show_prompts, show_responses
 
         if "prompt" in params:
             prompt = params["prompt"][0]  # Extract the prompt parameter
+            
+
+            if "context" in params: # only adds context if context exists
+                prompt = f"***context for question: { params['context'][0] }***    question to respond to: {params['prompt'][0]}"
+            
 
             try:
                 response = ollama_interaction.get_response(prompt, model_name)
@@ -154,7 +159,7 @@ def _get_private_ip():
     except socket.error:
         return "Unable to retrieve IP address"
 
-def run_server(route_model_map, host="0.0.0.0", port=8000, show_prompts=False, show_responses=False):
+def run_server(route_model_map={"/llama": "llama3.2"}, host="0.0.0.0", port=8000, show_prompts=False, show_responses=False):
     """Run the HTTP server with the given route-to-model mapping, logging settings, and port."""
     private_ip = _get_private_ip()
 

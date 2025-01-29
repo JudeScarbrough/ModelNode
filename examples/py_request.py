@@ -6,7 +6,8 @@ url = "your server url"
 
 # Parameters for the GET request
 params = {
-    "prompt": "Hello, tell me about the main difference between American and Japanese cars."
+    "prompt": "What is the difference between American and European cars?",
+    #"context": "context for you question"
 }
 
 
