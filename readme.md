@@ -25,9 +25,6 @@ If you're building new AI-driven features or scaling existing ones, ModelNode ma
 - #### Support for prompt context  
     Allows context such as code documentation, historical context, or prior conversation history to be included, enabling more accurate and informed responses.  
 
-- #### Logging for requests and responses  
-    Captures request and response data for debugging, monitoring, and analytics.
-
 - #### Web-based UI for sending prompts and viewing responses  
     Provides a simple and intuitive web interface to interact with the server, send queries, and visualize responses.
 
