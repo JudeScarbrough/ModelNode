@@ -7,7 +7,7 @@ url = "https:/localhost:8000/llama"
 # Parameters for the GET request
 params = {
     "prompt": "What is the difference between American and European cars?",
-    #"context": "context for you question"
+    #"context": "context for you question" <-- add context here if desired
 }
 
 

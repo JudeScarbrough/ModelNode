@@ -14,7 +14,7 @@ import ollama_interaction
 
 
 model_name = "llama2"  # Replace with the desired model
-prompt = "Why is the sky blue?"
+prompt = "Why is the sky blue?" # Prompt for model
 
 # Get the response
 response = ollama_interaction.get_response(prompt, model_name)
