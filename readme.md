@@ -2,7 +2,7 @@
 
   
 
-ModelNode is a lightweight HTTP server with a user interface designed for interaction with machine learning models. With this package, you can easily map specific HTTP routes to models hosted on your public IP, enabling you to receive prompts and deliver responses from your models.
+ModelNode is a HTTP server with a user interface designed for interaction with machine learning models. With this package, you can easily map specific HTTP routes to models hosted on your public IP, enabling you to receive prompts and deliver responses from all of your models.
 
 #### Why ModelNode?
 ModelNode simplifies the process of integrating machine learning models into your web applications. It provides a cost-free, hassle-free alternative to third-party APIs like OpenAI. By hosting your own server with ModelNode, you can:
@@ -280,7 +280,55 @@ response = requests.get(url, params=params)
 print(response.json())
 ```
 
-  
+
+
+
+
+### Getting Multiple Model Responses From the Same Prompt
+
+Ensure you define all desired routes when starting the server.
+
+```python
+import ModelNode
+
+routes = {
+	"/llama3.2": "llama3.2",
+	"/deepseek": "deepseek-r1:14b"
+    "/llama2": "llama2"
+}
+
+ModelNode.run_server(routes)
+```
+
+Then, when you make a request to the server ensure you add the route for each desired model starting with a slash and separated by +
+
+```python
+import requests
+import json
+
+url = "http://172.16.233.226:8000/llama3.2+/llama2+/deepseek"
+
+params = {
+    "prompt": "What is the difference between American and European cars?"
+}
+
+response = requests.get(url, params=params)
+
+print(response.json())
+```
+
+The response shape is structured below
+
+```python
+{
+    "llama3.2": "llama3.2 sample response",
+    "llama2": "llama2 sample response",
+    "deepseek-r1:14b": "deepseek-r1:14b sample response"
+}
+```
+
+
+
 
 ### Changing the Server Port
 
