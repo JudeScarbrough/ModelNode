@@ -293,7 +293,7 @@ import ModelNode
 
 routes = {
 	"/llama3.2": "llama3.2",
-	"/deepseek": "deepseek-r1:14b"
+	"/deepseek": "deepseek-r1:14b",
     "/llama2": "llama2"
 }
 
