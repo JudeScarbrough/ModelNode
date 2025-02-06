@@ -11,6 +11,7 @@ import urllib.parse as urlparse
 import socket
 import json
 import ollama_interaction
+import excess_routes
 import os
 
 ### Documentation available at https://github.com/JudeScarbrough/ModelNode ###
@@ -70,7 +71,12 @@ def _handle_request(route, params, route_model_map, show_prompts, show_responses
         else:
             return "Error: Missing 'prompt' parameter"
     
-    return f"Error: Route '{route}' not found"
+
+    #not an above listed route
+    return excess_routes.handle(route=route, route_model_map=route_model_map, params=params)
+
+
+    
 
 class _RouteHandler(BaseHTTPRequestHandler):
     # This will hold the route-to-model mapping and logging settings
