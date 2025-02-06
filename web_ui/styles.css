@@ -85,7 +85,7 @@ header {
     padding: 15px;
     overflow-y: auto;
     scroll-behavior: smooth;
-    scrollbar-width: none; /* Firefox */
+    scrollbar-width: none;
     -ms-overflow-style: none;
 }
 
@@ -140,18 +140,12 @@ header {
     background-color: #0088ff;
 }
 
-
-
-
-
-/* Think tag formatting */
 .think {
     font-style: italic;
     font-weight: bold;
-    color: #f4b400; /* Bright yellow for emphasis */
+    color: #f4b400;
 }
 
-/* Animated loading indicator */
 .loading-indicator {
     background-color: #5a2d91;
     color: #d1d5db;
@@ -172,23 +166,17 @@ header {
     margin-left: 5px;
 }
 
-
-/* Hide Element */
 .hidden {
     display: none !important;
 }
-
-
-
 
 #dots {
     font-size: 16px;
     font-weight: 800;
 }
 
-
 .think {
     font-style: italic;
     font-weight: bold;
-    color: #f4b400; /* Bright yellow for emphasis */
+    color: #f4b400;
 }
